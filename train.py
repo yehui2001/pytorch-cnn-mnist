@@ -5,13 +5,14 @@ import torch.nn as nn
 import matplotlib.pyplot as plt
 from torch.utils.data import DataLoader
 from torchvision import datasets, transforms
-from torch.utils.tensorboard import SummaryWriter
+
 #%% tensorboard
-writer = SummaryWriter('./logs/')
 #%% 训练设备
-device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+device = torch.device('mps')
+# device = torch.device('cpu')
+# device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 #%% 参数定义
-EPOCH = 30
+EPOCH = 5
 BATCH_SIZE = 128
 LR = 1E-3
 #%% 下载数据集
@@ -122,8 +123,8 @@ def show():
     print(header_show, end=' ')
     # 打印训练的LOSS和ACC信息
     loss, acc = calc(train_loader)
-    writer.add_scalar('loss', loss, epoch+1)
-    writer.add_scalar('acc', acc, epoch+1)
+    # writer.add_scalar('loss', loss, epoch+1)
+    # writer.add_scalar('acc', acc, epoch+1)
     train_list = [
         f'LOSS: {loss:.4f}',
         f'ACC: {acc:.4f}'
@@ -132,8 +133,8 @@ def show():
     print(train_show, end=' ')
     # 打印测试的LOSS和ACC信息
     val_loss, val_acc = calc(test_loader)
-    writer.add_scalar('val_loss', val_loss, epoch+1)
-    writer.add_scalar('val_acc', val_acc, epoch+1)
+    # writer.add_scalar('val_loss', val_loss, epoch+1)
+    # writer.add_scalar('val_acc', val_acc, epoch+1)
     test_list = [
         f'VAL-LOSS: {val_loss:.4f}',
         f'VAL-ACC: {val_acc:.4f}'

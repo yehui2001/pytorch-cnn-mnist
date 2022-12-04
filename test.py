@@ -21,7 +21,7 @@ for name in sorted(os.listdir(path)):
 imgs = torch.stack(imgs, 0)
 #%% 加载模型
 model = CNN()
-model.load_state_dict(torch.load('model.pt', map_location=torch.device('cpu')))
+model.load_state_dict(torch.load('model.pt', map_location=torch.device('mps')))
 model.eval()
 #%% 测试模型
 with torch.no_grad():
